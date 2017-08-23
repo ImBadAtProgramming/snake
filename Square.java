@@ -20,12 +20,12 @@ class Square extends JComponent implements MouseListener{
 	private char c = 'e';
 	private int x = 0;
 	private int y = 0;
-	private boolean hasForward;
-	private boolean hasBackward;
-	private boolean hasUp;
-	private boolean hasDown;
-	private boolean hasFood;
-	private boolean hasSnake;
+	private boolean hasFood = false;
+	private boolean hasSnake = false;
+	private boolean hasWall = false;
+	private boolean hasWall1 = false;
+	private boolean hasPortal = false;
+	private boolean hasPepper = false;
 	private SnakePic snakePic;
 	
 	public Square(int x, int y, SnakePic snakePic) {
@@ -45,22 +45,86 @@ class Square extends JComponent implements MouseListener{
 		if (hasSnake) {
 			img = snakePic.getImage(SnakePic.ImgType.SNAKE);
 		}
-		if (hasForward) {
-			img = snakePic.getImage(SnakePic.ImgType.SNAKE);
+		if (hasFood) {
+			img = snakePic.getImage(SnakePic.ImgType.CHERRY);
+		}
+		if (hasPepper) {
+			img = snakePic.getImage(SnakePic.ImgType.PEPPER);
+		}
+		if (hasWall) {
+			img = snakePic.getImage(SnakePic.ImgType.WALL);
+		}
+		if (hasWall1) {
+			img = snakePic.getImage(SnakePic.ImgType.WALL1);
+		}
+		if (hasPortal) {
+			img = snakePic.getImage(SnakePic.ImgType.PORTAL);
 		}
 		return img;
 	}
-
-	public void toggleSnake() {
-		// TODO Auto-generated method stub
-		hasSnake = !hasSnake;
+	public boolean hasBadFood() {
+		return hasPepper;
+	}
+	public void deSetBadFood() {
+		hasPepper = false;
+	}
+	public void setBadFood() {
+		hasPepper = true;
 		repaint();
 	}
-	
+	public void setBlank() {
+		hasFood = false;
+		hasPepper = false;
+		hasSnake = false;
+		hasWall = false;
+		hasWall1 = false;
+		hasPortal = false;
+	}
+	public void setWall1() {
+		hasWall1 = true;
+	}
+	public boolean hasWall1() {
+		return hasWall1;
+	}
+	public void setPortal() {
+		hasPortal = true;
+		hasWall = false;
+		hasWall1 = false;
+	}
+	public boolean hasPortal() {
+		return hasPortal;
+	}
+	public boolean hasWall() {
+		return hasWall;
+	}
+	public void setWall() {
+		hasWall = true;
+	}
+	public void setFood() {
+		hasFood = true;
+		repaint();
+	}
+	public void deSetFood() {
+		hasFood = false;
+	}
+	public boolean hasFood() {
+		return hasFood;
+	}
+	public boolean hasSnake() {
+		return hasSnake;
+	}
+	public void setSnake() {
+		hasSnake = true;
+		repaint();
+	}
+	public void deSetSnake() {
+		// TODO Auto-generated method stub
+		hasSnake = false;
+		repaint();
+	}
 	public void paintComponent(Graphics g)
     {	
-        super.paintComponent(g);
-        
+        super.paintComponent(g);   
         g.drawImage(getImage(), 0, 0, null);
     }
 
@@ -73,8 +137,6 @@ class Square extends JComponent implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		hasSnake = !hasSnake;
-		repaint();
 	}
 
 	@Override
